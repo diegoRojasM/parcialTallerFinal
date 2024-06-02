@@ -1,0 +1,41 @@
+<h1>Editar Producto</h1>
+<form [formGroup]="productoForm" (ngSubmit)="onSubmit()">
+  <div class="form-group">
+    <label for="nombre">Nombre:</label>
+    <input type="text" class="form-control" id="nombre" formControlName="nombre">
+    <div *ngIf="productoForm.get('nombre')?.invalid && productoForm.get('nombre')?.touched" class="text-danger">
+      Nombre es requerido.
+    </div>
+  </div>
+  <div class="form-group">
+    <label for="descripcion">Descripción:</label>
+    <input type="text" class="form-control" id="descripcion" formControlName="descripcion">
+    <div *ngIf="productoForm.get('descripcion')?.invalid && productoForm.get('descripcion')?.touched" class="text-danger">
+      Descripción es requerida.
+    </div>
+  </div>
+  <div class="form-group">
+    <label for="precio">Precio:</label>
+    <input type="number" class="form-control" id="precio" formControlName="precio">
+    <div *ngIf="productoForm.get('precio')?.invalid && productoForm.get('precio')?.touched" class="text-danger">
+      Precio debe ser positivo y mayor que 0.
+    </div>
+  </div>
+  <div class="form-group">
+    <label for="categoria">Categoría:</label>
+    <input type="text" class="form-control" id="categoria" formControlName="categoria">
+    <div *ngIf="productoForm.get('categoria')?.invalid && productoForm.get('categoria')?.touched" class="text-danger">
+      Categoría es requerida.
+    </div>
+  </div>
+  <div class="form-group">
+    <label for="stock">Stock:</label>
+    <input type="number" class="form-control" id="stock" formControlName="stock">
+    <div *ngIf="productoForm.get('stock')?.invalid && productoForm.get('stock')?.touched" class="text-danger">
+      Stock debe ser 0 o mayor.
+    </div>
+  </div>
+  <button type="submit" class="btn btn-primary" [disabled]="productoForm.invalid">Guardar</button>
+  <button routerLink="/productos" class="btn btn-secondary">Cancelar</button>
+
+</form>
