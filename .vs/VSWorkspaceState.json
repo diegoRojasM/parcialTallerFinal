@@ -6,9 +6,8 @@
     "\\Examen3\\ClientApp\\src",
     "\\Examen3\\ClientApp\\src\\app",
     "\\Examen3\\ClientApp\\src\\app\\productos",
-    "\\Examen3\\ClientApp\\src\\app\\productos\\productos-form",
     "\\Examen3\\Controllers"
   ],
-  "SelectedNode": "\\Examen3\\Examen3.csproj",
+  "SelectedNode": "\\Examen3\\Program.cs",
   "PreviewInSolutionExplorer": false
 }
