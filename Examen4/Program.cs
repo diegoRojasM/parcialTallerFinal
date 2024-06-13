@@ -17,6 +17,12 @@ builder.Services.AddDbContext<AppDbContext>(
 
 builder.Services.AddScoped<ProductoService>();
 
+///////////////////
+builder.Services.AddDbContext<ApplicationDbContext>(
+    options=> options.UseSqlServer(builder.Configuration.GetConnectionString("Defaultt2"))
+);
+
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
