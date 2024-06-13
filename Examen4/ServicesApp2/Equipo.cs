@@ -1,4 +1,6 @@
-namespace Examen3.ServiceApp2;
+using Examen3.ServiceApp2;
+
+namespace Examen3.ServiceApp2
 {
     public class Equipo
     {

@@ -1,5 +1,11 @@
 using Microsoft.EntityFrameworkCore;
 using SPA.ServicesApp;
+using Examen3.ServiceApp2;
+using Examen3.ServiceApp2.Contrato;
+using Examen3.ServiceApp2.Implementacion;
+
+
+
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -22,6 +28,9 @@ builder.Services.AddDbContext<ApplicationDbContext>(
     options=> options.UseSqlServer(builder.Configuration.GetConnectionString("Defaultt2"))
 );
 
+builder.Services.AddScoped<UsuarioService>();
+
+//////////////////////////
 
 var app = builder.Build();
 
