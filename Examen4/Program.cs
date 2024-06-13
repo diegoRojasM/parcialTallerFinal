@@ -33,11 +33,11 @@ builder.Services.AddDbContext<ApplicationDbContext>(
 
 builder.Services.AddScoped<UsuarioService>();
 
-builder.Services.AddAuthentication(CoockieAuthenticationDefaults.AuthenticationScheme)
-    .AddCookie(options =>){
-        options.LoginPath = "/Inicio/IniciarSesion";
-        options.ExpireTimeSpan = TimeSpan.FromMinutes(5);
-    }
+// builder.Services.AddAuthentication(CoockieAuthenticationDefaults.AuthenticationScheme)
+//     .AddCookie(options =>){
+//         options.LoginPath = "/Inicio/IniciarSesion";
+//         options.ExpireTimeSpan = TimeSpan.FromMinutes(5);
+//     }
 //////////////////////////
 
 var app = builder.Build();
@@ -54,7 +54,7 @@ app.UseAuthentication();
 
 app.MapControllerRoute(
     name: "default",
-    pattern: "{controller=Inicio}/{action=IniciarSesion}/{id?}");
+    pattern: "{controller}/{action=Index}/{id?}");
 
 app.MapFallbackToFile("index.html");;
 
