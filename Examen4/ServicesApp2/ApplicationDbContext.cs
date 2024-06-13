@@ -1,7 +1,7 @@
 using Examen3.ServiceApp;
 using Microsoft.EntityFrameworkCore;
 
-public class ApplicationDbContext : IdentityDbContext<User>
+public class ApplicationDbContext : DbContext
 {
     public DbSet<Evento> Eventos { get; set; }
     public DbSet<Participante> Participantes { get; set; }
