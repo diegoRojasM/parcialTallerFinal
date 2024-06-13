@@ -4,6 +4,9 @@ using Examen3.ServiceApp2;
 using Examen3.ServiceApp2.Contrato;
 using Examen3.ServiceApp2.Implementacion;
 
+using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Mvc;
+
 
 
 
@@ -30,6 +33,11 @@ builder.Services.AddDbContext<ApplicationDbContext>(
 
 builder.Services.AddScoped<UsuarioService>();
 
+builder.Services.AddAuthentication(CoockieAuthenticationDefaults.AuthenticationScheme)
+    .AddCookie(options =>){
+        options.LoginPath = "/Inicio/IniciarSesion";
+        options.ExpireTimeSpan = TimeSpan.FromMinutes(5);
+    }
 //////////////////////////
 
 var app = builder.Build();
@@ -42,10 +50,11 @@ if (!app.Environment.IsDevelopment())
 app.UseStaticFiles();
 app.UseRouting();
 
+app.UseAuthentication();
 
 app.MapControllerRoute(
     name: "default",
-    pattern: "{controller}/{action=Index}/{id?}");
+    pattern: "{controller=Inicio}/{action=IniciarSesion}/{id?}");
 
 app.MapFallbackToFile("index.html");;
 
