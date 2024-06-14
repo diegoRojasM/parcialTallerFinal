@@ -3,7 +3,8 @@ import { FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { IUsuario } from './IUsuario';
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { Observable, BehaviorSubject } from 'rxjs';
+import { User } from 'oidc-client';
 
 
 
@@ -15,6 +16,9 @@ import { Observable } from 'rxjs';
 export class LoginComponent {
   public usuarios:IUsuario[]=[];
   loginError:string="";
+
+  currentUserLoginOn: BehaviorSubject<boolean>= new BehaviorSubject<boolean>(false);
+  currentUserData: BehaviorSubject<IUsuario> = new BehaviorSubject<IUsuario>({id:0,nombre:'',correo:'',clave:''});
 
   loginForm=this.formBuilder.group({
       email:['diego@gmail.com',[Validators.required,Validators.email]],

@@ -65,6 +65,7 @@ import { ConfirmarBorrarProductoComponent } from './productos/confirmar-borrar-p
 import { LoginComponent } from './auth/login/login.component';
 import { DashboardComponent } from './pages/dashboard/dashboard.component';
 import { NavComponent } from './shared/nav/nav.component';
+import { EventComponent } from './eventos/event/event.component';
 
 @NgModule({
   declarations: [
@@ -79,7 +80,8 @@ import { NavComponent } from './shared/nav/nav.component';
     ConfirmarBorrarProductoComponent,
     LoginComponent,
     DashboardComponent,
-    NavComponent
+    NavComponent,
+    EventComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
@@ -98,6 +100,8 @@ import { NavComponent } from './shared/nav/nav.component';
 
       { path: 'inicio', component: DashboardComponent },
       { path: 'iniciar-sesion', component: LoginComponent },
+      { path: 'events', component: EventComponent },
+
     ])
   ],
   providers: [],
