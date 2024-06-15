@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Mvc;
 
 using Examen3.ServiceApp3;
+using Examen3.ServiceApp4;
 
 
 
@@ -48,6 +49,13 @@ builder.Services.AddDbContext<ApDbContext>(
 );
 
 builder.Services.AddScoped<EventoService>();
+
+///////----------------------------
+builder.Services.AddDbContext<ApppDbContext>(
+    options=> options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultPersona"))
+);
+
+//builder.Services.AddScoped<Per>();
 
 var app = builder.Build();
 
