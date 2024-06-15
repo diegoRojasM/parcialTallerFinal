@@ -8,7 +8,8 @@ const PROXY_CONFIG = [
     context: [
       "/weatherforecast",
       "/productos",
-      "/eventos"
+      "/eventos",
+      "/evento"
 
    ],
     proxyTimeout: 10000,

@@ -7,6 +7,8 @@ using Examen3.ServiceApp2.Implementacion;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Mvc;
 
+using Examen3.ServiceApp3;
+
 
 
 
@@ -39,6 +41,13 @@ builder.Services.AddScoped<UsuarioService>();
 //         options.ExpireTimeSpan = TimeSpan.FromMinutes(5);
 //     }
 //////////////////////////
+
+
+builder.Services.AddDbContext<ApDbContext>(
+    options=> options.UseSqlServer(builder.Configuration.GetConnectionString("Default3"))
+);
+
+builder.Services.AddScoped<EventoService>();
 
 var app = builder.Build();
 

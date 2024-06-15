@@ -67,6 +67,9 @@ import { DashboardComponent } from './pages/dashboard/dashboard.component';
 import { NavComponent } from './shared/nav/nav.component';
 import { EventComponent } from './eventos/event/event.component';
 
+import { EventoooComponent } from './eventooo/eventooo/eventooo.component';
+import { EventDetailComponent } from './eventooo/eventooo/evento-detalle/evento-detalle.component'; 
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -81,7 +84,9 @@ import { EventComponent } from './eventos/event/event.component';
     LoginComponent,
     DashboardComponent,
     NavComponent,
-    EventComponent
+    EventComponent,
+    EventoooComponent,
+    EventDetailComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
@@ -89,7 +94,7 @@ import { EventComponent } from './eventos/event/event.component';
     FormsModule,
     ReactiveFormsModule,
     RouterModule.forRoot([
-      { path: '', redirectTo:'/inicio'/*component: HomeComponent*/, pathMatch: 'full' },
+      { path: '', /*redirectTo:'/inicio'*/component: HomeComponent, pathMatch: 'full' },
       { path: 'counter', component: CounterComponent },
       { path: 'fetch-data', component: FetchDataComponent },
       { path: 'productos', component: ProductosComponent },
@@ -101,6 +106,9 @@ import { EventComponent } from './eventos/event/event.component';
       { path: 'inicio', component: DashboardComponent },
       { path: 'iniciar-sesion', component: LoginComponent },
       { path: 'events', component: EventComponent },
+      { path: 'eventooo', component: EventoooComponent },
+      { path: 'evento-detalle/:id', component: EventDetailComponent },
+
 
     ])
   ],

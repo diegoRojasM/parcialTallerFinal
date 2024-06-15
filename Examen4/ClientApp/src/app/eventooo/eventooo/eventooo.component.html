@@ -1,0 +1,22 @@
+<div>
+    <h1>Eventos</h1>
+    <button (click)="agregarEvento()">Agregar Evento</button>
+    <ul>
+      <li *ngFor="let evento of eventos">
+        <h2>{{ evento.nombre }}</h2>
+        <p>{{ evento.descripcion }}</p>
+        <p><strong>Ubicación:</strong> {{ evento.ubicacion }}</p>
+        <p><strong>Información de Contacto:</strong> {{ evento.informacionContacto }}</p>
+        <p><strong>Fecha de Inicio:</strong> {{ evento.fechaInicio | date }}</p>
+        <p><strong>Fecha de Fin:</strong> {{ evento.fechaFin | date }}</p>
+        <p><strong>Estado:</strong> {{ evento.estado }}</p>
+        <p><strong>Tipo:</strong> {{ evento.tipo }}</p>
+        
+        <button (click)="editarEvento(evento)">Editar</button>
+        <button (click)="verDetalleEvento(evento.id)">Ver detalles del evento</button>
+        
+
+      </li>
+    </ul>
+  </div>
+  
