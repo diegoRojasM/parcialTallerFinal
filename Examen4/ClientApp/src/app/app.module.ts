@@ -62,6 +62,11 @@ import { AgregarProductoComponent } from './productos/agregar-producto/agregar-p
 import { EditarProductoComponent } from './productos/editar-producto/editar-producto.component';
 import { ConfirmarBorrarProductoComponent } from './productos/confirmar-borrar-producto/confirmar-borrar-producto.component';
 
+import { PersonasComponent } from './personas/personas.component';
+import { PersonasService } from './personas/personas.service';
+import { PersonasFormComponent } from './personas/personas-form/personas-form.component';
+
+import { CommonModule } from '@angular/common';
 
 @NgModule({
   declarations: [
@@ -74,6 +79,9 @@ import { ConfirmarBorrarProductoComponent } from './productos/confirmar-borrar-p
     AgregarProductoComponent,
     EditarProductoComponent,
     ConfirmarBorrarProductoComponent,
+    PersonasComponent,
+    PersonasFormComponent
+    
 
   ],
   imports: [
@@ -81,6 +89,7 @@ import { ConfirmarBorrarProductoComponent } from './productos/confirmar-borrar-p
     HttpClientModule,
     FormsModule,
     ReactiveFormsModule,
+    CommonModule,
     RouterModule.forRoot([
       { path: '', component: HomeComponent, pathMatch: 'full' },
       { path: 'counter', component: CounterComponent },
@@ -89,9 +98,13 @@ import { ConfirmarBorrarProductoComponent } from './productos/confirmar-borrar-p
       { path: 'agregar', component: AgregarProductoComponent },
       { path: 'editar/:id', component: EditarProductoComponent },
       { path: 'borrar/:id', component: ConfirmarBorrarProductoComponent },
+
+      { path: 'personas', component: PersonasComponent },
+      { path: 'personas-agregar', component: PersonasFormComponent },
+
     ])
   ],
-  providers: [],
+  providers: [PersonasService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

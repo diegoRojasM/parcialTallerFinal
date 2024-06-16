@@ -9,8 +9,9 @@ using Examen3.ServiceApp;
 
 namespace Examen3.Controllers
 {
-    [Route("api/[controller]")]
     [ApiController]
+    [Route("personas")]
+
     public class PersonasController : ControllerBase
     {
         private readonly ApplicationDbContext _context;
@@ -25,6 +26,12 @@ namespace Examen3.Controllers
         public async Task<ActionResult<IEnumerable<Persona>>> GetPersonas()
         {
             return await _context.Personas.ToListAsync();
+            // return new List<Persona>()
+            // {
+            //     new Persona(){Id = 1,Nombre = "Luciana Espinoza", FechaNacimiento = new DateTime(1823,1,2)},
+            //     new Persona(){Id = 2,Nombre = "Diego Rojas", FechaNacimiento = new DateTime(1925,4,9)}
+            // };
+
         }
 
         // GET: api/Personas/5
