@@ -16,7 +16,15 @@ export class PersonasService {
     return this.http.get<IPersona[]>(this.apiURL);
   }
 
+  getPersona(personaId:string):Observable<IPersona>{
+    return this.http.get<IPersona>(this.apiURL + '/' + personaId);
+  }
+
   createPersona(persona:IPersona): Observable<IPersona>{
     return this.http.post<IPersona>(this.apiURL,persona);
+  }
+
+  updatePersona(persona:IPersona):Observable<IPersona>{
+    return this.http.put<IPersona>(this.apiURL+"/"+persona.id.toString(),persona)
   }
 }

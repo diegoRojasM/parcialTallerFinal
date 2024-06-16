@@ -9,6 +9,8 @@ import { PersonasService } from './personas.service';
 })
 export class PersonasComponent {
   public personas:IPersona[] =[];
+  
+
   constructor(private personasService: PersonasService){}
 
   ngOnInit(){

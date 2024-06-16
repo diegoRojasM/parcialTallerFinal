@@ -66,7 +66,7 @@ import { PersonasComponent } from './personas/personas.component';
 import { PersonasService } from './personas/personas.service';
 import { PersonasFormComponent } from './personas/personas-form/personas-form.component';
 
-import { CommonModule } from '@angular/common';
+import { CommonModule, DatePipe } from '@angular/common';
 
 @NgModule({
   declarations: [
@@ -101,10 +101,11 @@ import { CommonModule } from '@angular/common';
 
       { path: 'personas', component: PersonasComponent },
       { path: 'personas-agregar', component: PersonasFormComponent },
+      { path: 'personas-editar/:id', component: PersonasFormComponent }, // parametros /:id, truco para que parezca otro form
 
     ])
   ],
-  providers: [PersonasService],
+  providers: [PersonasService,DatePipe],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
