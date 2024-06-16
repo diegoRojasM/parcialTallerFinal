@@ -62,9 +62,6 @@ import { AgregarProductoComponent } from './productos/agregar-producto/agregar-p
 import { EditarProductoComponent } from './productos/editar-producto/editar-producto.component';
 import { ConfirmarBorrarProductoComponent } from './productos/confirmar-borrar-producto/confirmar-borrar-producto.component';
 
-import { LoginComponent } from './auth/login/login.component';
-import { DashboardComponent } from './pages/dashboard/dashboard.component';
-import { NavComponent } from './shared/nav/nav.component';
 
 @NgModule({
   declarations: [
@@ -77,9 +74,7 @@ import { NavComponent } from './shared/nav/nav.component';
     AgregarProductoComponent,
     EditarProductoComponent,
     ConfirmarBorrarProductoComponent,
-    LoginComponent,
-    DashboardComponent,
-    NavComponent
+
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
@@ -87,17 +82,13 @@ import { NavComponent } from './shared/nav/nav.component';
     FormsModule,
     ReactiveFormsModule,
     RouterModule.forRoot([
-      { path: '', redirectTo:'/inicio'/*component: HomeComponent*/, pathMatch: 'full' },
+      { path: '', component: HomeComponent, pathMatch: 'full' },
       { path: 'counter', component: CounterComponent },
       { path: 'fetch-data', component: FetchDataComponent },
       { path: 'productos', component: ProductosComponent },
       { path: 'agregar', component: AgregarProductoComponent },
       { path: 'editar/:id', component: EditarProductoComponent },
       { path: 'borrar/:id', component: ConfirmarBorrarProductoComponent },
-
-
-      { path: 'inicio', component: DashboardComponent },
-      { path: 'iniciar-sesion', component: LoginComponent },
     ])
   ],
   providers: [],

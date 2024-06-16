@@ -1,8 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using SPA.ServicesApp;
-using Examen3.ServiceApp2;
-using Examen3.ServiceApp2.Contrato;
-using Examen3.ServiceApp2.Implementacion;
+
 
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Mvc;
@@ -18,20 +16,23 @@ builder.Services.AddControllersWithViews();
 
 
 
-//
+//ESTE ES EL APP DBCONTEXT DE PRODUCTOS
 builder.Services.AddDbContext<AppDbContext>(
     options=> options.UseSqlServer(builder.Configuration.GetConnectionString("Defaultt"))
 );
-//
 
 builder.Services.AddScoped<ProductoService>();
+//
+
+
+builder.Services.AddDbContext<ApplicationDbContext>(
+    options=> options.UseSqlServer(builder.Configuration.GetConnectionString("Persons"))
+);
+//
+
 
 ///////////////////
-builder.Services.AddDbContext<ApplicationDbContext>(
-    options=> options.UseSqlServer(builder.Configuration.GetConnectionString("Defaultt2"))
-);
 
-builder.Services.AddScoped<UsuarioService>();
 
 // builder.Services.AddAuthentication(CoockieAuthenticationDefaults.AuthenticationScheme)
 //     .AddCookie(options =>){
