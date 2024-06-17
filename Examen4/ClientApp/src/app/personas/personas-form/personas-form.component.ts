@@ -40,7 +40,7 @@ export class PersonasFormComponent implements OnInit {
       // Necesito traer los valores de la persona por el id
       this.personaService.getPersona(this.personaId.toString())
         .subscribe(persona => this.cargarFormulario(persona),
-                   error => console.error(error));
+                   error => console.error(error)); // route.navigate.(["/personas"]) para redirigir hacia la ruta de personas
     });
   }
 

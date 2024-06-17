@@ -49,7 +49,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { HttpClientModule } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { RouterModule } from '@angular/router';
 
 import { AppComponent } from './app.component';
@@ -67,6 +67,7 @@ import { PersonasService } from './personas/personas.service';
 import { PersonasFormComponent } from './personas/personas-form/personas-form.component';
 
 import { CommonModule, DatePipe } from '@angular/common';
+import { LogInterceptorService } from './services/log-interceptor.service';
 
 @NgModule({
   declarations: [
@@ -105,7 +106,13 @@ import { CommonModule, DatePipe } from '@angular/common';
 
     ])
   ],
-  providers: [PersonasService,DatePipe],
+  providers: [PersonasService,DatePipe,
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: LogInterceptorService,
+      multi: true
+    }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

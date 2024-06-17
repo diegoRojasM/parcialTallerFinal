@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Inject, Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { IPersona } from './IPersona';
@@ -17,7 +17,8 @@ export class PersonasService {
   }
 
   getPersona(personaId:string):Observable<IPersona>{
-    return this.http.get<IPersona>(this.apiURL + '/' + personaId);
+    let params = new HttpParams().set('incluirDirecciones',"true")
+    return this.http.get<IPersona>(this.apiURL + '/' + personaId, {params:params});
   }
 
   createPersona(persona:IPersona): Observable<IPersona>{
@@ -26,5 +27,9 @@ export class PersonasService {
 
   updatePersona(persona:IPersona):Observable<IPersona>{
     return this.http.put<IPersona>(this.apiURL+"/"+persona.id.toString(),persona)
+  }
+
+  deletePersona(personaId:string):Observable<IPersona>{
+    return this.http.delete<IPersona>(this.apiURL+"/"+personaId)
   }
 }

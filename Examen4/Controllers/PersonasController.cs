@@ -36,9 +36,18 @@ namespace Examen3.Controllers
 
         // GET: api/Personas/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<Persona>> GetPersona(int id)
+        public async Task<ActionResult<Persona>> GetPersona(int id, bool incluirDirecciones = false)
         {
-            var persona = await _context.Personas.FindAsync(id);
+            Persona persona;
+
+            if(incluirDirecciones){
+                persona = await _context.Personas.Include(x=>x.Direcciones).FindAsync(id);
+
+            }else{
+                persona = await _context.Personas.FindAsync(id);
+
+            }
+
 
             if (persona == null)
             {

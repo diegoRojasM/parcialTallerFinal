@@ -14,6 +14,16 @@ export class PersonasComponent {
   constructor(private personasService: PersonasService){}
 
   ngOnInit(){
+    this.cargarData();
+  }
+
+  delete(persona:IPersona){
+    this.personasService.deletePersona(persona.id.toString())
+      .subscribe(persona => this.cargarData(),
+      error => console.error(error))
+  }
+
+  cargarData(){
     this.personasService.getPersonas()
     .subscribe(personasD => this.personas = personasD,
         error => console.error(error)
