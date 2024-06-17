@@ -1,8 +1,7 @@
-﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
-using reactiveFormWeb.Models;
 using System;
 using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
@@ -10,8 +9,9 @@ using System.Linq;
 using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
+using Examen3.ServiceApp;
 
-namespace reactiveFormWeb.Controllers
+namespace Examen3.Controllers
 {
     [ApiController]
     [Route("account")]
@@ -86,7 +86,7 @@ namespace reactiveFormWeb.Controllers
                 new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString())
             };
 
-            var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["Llave_super_secreta"]));
+            var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("aksmdaklsdmnfkdjsnfksnaksdkasnd33"));
             var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
 
             var expiration = DateTime.UtcNow.AddDays(7);

@@ -9,7 +9,8 @@ const PROXY_CONFIG = [
       "/weatherforecast",
       "/productos",
       "/personas",
-      "/direcciones"
+      "/direcciones",
+      "/account",
 
    ],
     proxyTimeout: 10000,
