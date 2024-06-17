@@ -23,10 +23,9 @@ export class PersonasComponent {
       error => console.error(error))
   }
 
-  cargarData(){
+  cargarData() {
     this.personasService.getPersonas()
-    .subscribe(personasD => this.personas = personasD,
-        error => console.error(error)
-    ); //el listado de persona que viene desde el webService asignelo a la var
+      .subscribe(personasDesdeWS => this.personas = personasDesdeWS,
+        error => console.error(error));
   }
 }

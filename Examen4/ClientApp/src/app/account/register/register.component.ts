@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { IUserInfo } from '../user-info';
 import { AccountService } from '../account.service';
 import { Router } from '@angular/router';
@@ -11,28 +11,43 @@ import { Router } from '@angular/router';
 })
 export class RegisterComponent implements OnInit {
 
-  constructor(private fb: FormBuilder,
-    private accountService: AccountService,
-    private router: Router) { }
   formGroup!: FormGroup;
+
+  constructor(
+    private fb: FormBuilder,
+    private accountService: AccountService,
+    private router: Router
+  ) { }
 
   ngOnInit() {
     this.formGroup = this.fb.group({
-      email: '',
-      password: '',
+      email: ['', [Validators.required, Validators.email]],
+      password: ['', [Validators.required, Validators.minLength(6)]],
     });
   }
 
   loguearse() {
-    let userInfo: IUserInfo = Object.assign({}, this.formGroup.value);
-    this.accountService.login(userInfo).subscribe(token => this.recibirToken(token),
-      error => this.manejarError(error));
+    if (this.formGroup.valid) {
+      let userInfo: IUserInfo = Object.assign({}, this.formGroup.value);
+      this.accountService.login(userInfo).subscribe({
+        next: (token) => this.recibirToken(token),
+        error: (error) => this.manejarError(error)
+      });
+    } else {
+      alert('Formulario no válido. Por favor, revisa los campos.');
+    }
   }
 
   registrarse() {
-    let userInfo: IUserInfo = Object.assign({}, this.formGroup.value);
-    this.accountService.create(userInfo).subscribe(token => this.recibirToken(token),
-      error => this.manejarError(error));
+    if (this.formGroup.valid) {
+      let userInfo: IUserInfo = Object.assign({}, this.formGroup.value);
+      this.accountService.create(userInfo).subscribe({
+        next: (token) => this.recibirToken(token),
+        error: (error) => this.manejarError(error)
+      });
+    } else {
+      alert('Formulario no válido. Por favor, revisa los campos.');
+    }
   }
 
   recibirToken(token: { token: string; expiration: string; }) {
@@ -41,10 +56,12 @@ export class RegisterComponent implements OnInit {
     this.router.navigate([""]);
   }
 
-  manejarError(error: { error: { [x: string]: any; }; }) {
+  manejarError(error: any) {
     if (error && error.error) {
-      alert(error.error[""]);
+      const errorMessage = error.error.message || 'Error al procesar la solicitud.';
+      alert(errorMessage);
+    } else {
+      alert('Error desconocido.');
     }
   }
-
 }

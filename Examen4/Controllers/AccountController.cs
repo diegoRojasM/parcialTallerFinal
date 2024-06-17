@@ -88,7 +88,7 @@ namespace Examen3.Controllers
 
             var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("aksmdaklsdmnfkdjsnfksnaksdkasnd33"));
             var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
-
+ 
             var expiration = DateTime.UtcNow.AddDays(7);
 
             JwtSecurityToken token = new JwtSecurityToken(
