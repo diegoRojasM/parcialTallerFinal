@@ -40,14 +40,16 @@ namespace Examen3.Controllers
         {
             Persona persona;
 
-            if(incluirDirecciones){
-                persona = await _context.Personas.Include(x=>x.Direcciones).FindAsync(id);
-
-            }else{
-                persona = await _context.Personas.FindAsync(id);
-
+            if (incluirDirecciones)
+            {
+                persona = await _context.Personas
+                                        .Include(x => x.Direcciones)
+                                        .FirstOrDefaultAsync(x => x.Id == id);
             }
-
+            else
+            {
+                persona = await _context.Personas.FindAsync(id);
+            }
 
             if (persona == null)
             {
@@ -56,6 +58,7 @@ namespace Examen3.Controllers
 
             return persona;
         }
+
 
         // PUT: api/Personas/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
