@@ -73,6 +73,7 @@ import { LeaveFormService } from './personas/personas-form/leave-form.service';
 import { RegisterComponent } from './account/register/register.component';
 import { AuthGuardService } from './services/auth-guard.service';
 import { AccountService } from './account/account.service';
+import { AuthInterceptorService } from './services/auth-interceptor.service';
 
 @NgModule({
   declarations: [
@@ -122,6 +123,11 @@ import { AccountService } from './account/account.service';
     {
       provide: HTTP_INTERCEPTORS,
       useClass: LogInterceptorService,
+      multi: true
+    },
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthInterceptorService,
       multi: true
     }
   ],
