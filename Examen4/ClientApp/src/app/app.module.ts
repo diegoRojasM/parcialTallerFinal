@@ -68,6 +68,7 @@ import { PersonasFormComponent } from './personas/personas-form/personas-form.co
 
 import { CommonModule, DatePipe } from '@angular/common';
 import { LogInterceptorService } from './services/log-interceptor.service';
+import { DireccionesService } from './direcciones/direcciones.service';
 
 @NgModule({
   declarations: [
@@ -81,7 +82,8 @@ import { LogInterceptorService } from './services/log-interceptor.service';
     EditarProductoComponent,
     ConfirmarBorrarProductoComponent,
     PersonasComponent,
-    PersonasFormComponent
+    PersonasFormComponent,
+
     
 
   ],
@@ -107,6 +109,7 @@ import { LogInterceptorService } from './services/log-interceptor.service';
     ])
   ],
   providers: [PersonasService,DatePipe,
+    DireccionesService,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: LogInterceptorService,

@@ -58,10 +58,25 @@ namespace Examen3.Controllers
 
             return persona;
         }
+        private async Task CrearOEditarDirecciones(List<Direccion> direcciones)
+        {
+            // Separa las direcciones en dos listas: las que necesitan ser creadas y las que necesitan ser editadas
+            List<Direccion> direccionesACrear = direcciones.Where(x => x.Id == 0).ToList();
+            List<Direccion> direccionesAEditar = direcciones.Where(x => x.Id != 0).ToList();
 
+            if (direccionesACrear.Any())
+            {
+                await _context.AddRangeAsync(direccionesACrear);
+            }
+            if (direccionesAEditar.Any())
+            {
+                _context.UpdateRange(direccionesAEditar);
+            }
+        }
 
         // PUT: api/Personas/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
+
         [HttpPut("{id}")]
         public async Task<IActionResult> PutPersona(int id, Persona persona)
         {
@@ -74,6 +89,8 @@ namespace Examen3.Controllers
 
             try
             {
+                // Aquí llamamos al método para crear o editar direcciones
+                await CrearOEditarDirecciones(persona.Direcciones);
                 await _context.SaveChangesAsync();
             }
             catch (DbUpdateConcurrencyException)
@@ -90,6 +107,7 @@ namespace Examen3.Controllers
 
             return NoContent();
         }
+
 
         // POST: api/Personas
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754

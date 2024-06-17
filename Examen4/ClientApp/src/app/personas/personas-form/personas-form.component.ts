@@ -4,6 +4,7 @@ import { IPersona } from '../IPersona';
 import { PersonasService } from '../personas.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { DatePipe } from '@angular/common';
+import { DireccionesService } from 'src/app/direcciones/direcciones.service';
 
 @Component({
   selector: 'app-personas-form',
@@ -18,7 +19,8 @@ export class PersonasFormComponent implements OnInit {
     private personaService: PersonasService,
     private router: Router,
     private activatedRoute: ActivatedRoute,
-    private datePipe: DatePipe
+    private datePipe: DatePipe,
+    private direccionesService: DireccionesService,
   ) {}
 
   modoEdicion: boolean = false;
@@ -56,7 +58,7 @@ export class PersonasFormComponent implements OnInit {
 
   construirDireccion() {
     return this.fb.group({
-      id: '0',
+      id: 0,
       calle: '',
       provincia: '',
       personaId: this.personaId || 0
@@ -83,6 +85,29 @@ export class PersonasFormComponent implements OnInit {
       persona.direcciones.map(direccion => this.fb.group(direccion))
     );
     this.formGroup.setControl('direcciones', direccionesFormArray);
+    
+    //esto es lo mismo que lo de arriba
+
+    // let direcciones = this.formGroup.controls['direcciones'] as FormArray;
+    // persona.direcciones.forEach(direccion => {
+    //   let direccionFG = this.construirDireccion();
+    //   direccionFG.patchValue(direccion);
+    //   direcciones.push(direccionFG);
+    // });
+
+    //esto igual  es lo mismo que lo de arriba
+
+    // const direccionesFormArray = this.fb.array(
+    //   persona.direcciones.map(direccion => this.fb.group({
+    //     id: direccion.id.toString(),
+    //     calle: direccion.calle,
+    //     provincia: direccion.provincia,
+    //     personaId: direccion.personaId
+    //   }))
+    // );
+  
+    // this.formGroup.setControl('direcciones', direccionesFormArray);
+
   }
 
   save() {
@@ -93,13 +118,23 @@ export class PersonasFormComponent implements OnInit {
       persona.id = this.personaId;
 
       this.personaService.updatePersona(persona)
-        .subscribe(() => this.onSaveSuccess(),
+        .subscribe(() => this.borrarDirecciones(),
                    error => console.error(error));
     } else {
       this.personaService.createPersona(persona)
         .subscribe(() => this.onSaveSuccess(),
                    error => console.error(error));
     }
+  }
+
+  borrarDirecciones(){
+    if (this.direccionesABorrar.length === 0) {
+      this.onSaveSuccess();
+      return;
+    }
+    this.direccionesService.deleteDirecciones(this.direccionesABorrar)
+      .subscribe(() => this.onSaveSuccess(),
+        error => console.error(error));
   }
 
   onSaveSuccess() {
