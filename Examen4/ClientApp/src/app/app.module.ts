@@ -69,6 +69,7 @@ import { PersonasFormComponent } from './personas/personas-form/personas-form.co
 import { CommonModule, DatePipe } from '@angular/common';
 import { LogInterceptorService } from './services/log-interceptor.service';
 import { DireccionesService } from './direcciones/direcciones.service';
+import { LeaveFormService } from './personas/personas-form/leave-form.service';
 
 @NgModule({
   declarations: [
@@ -103,13 +104,14 @@ import { DireccionesService } from './direcciones/direcciones.service';
       { path: 'borrar/:id', component: ConfirmarBorrarProductoComponent },
 
       { path: 'personas', component: PersonasComponent },
-      { path: 'personas-agregar', component: PersonasFormComponent },
-      { path: 'personas-editar/:id', component: PersonasFormComponent }, // parametros /:id, truco para que parezca otro form
+      { path: 'personas-agregar', component: PersonasFormComponent, canDeactivate: [LeaveFormService] },
+      { path: 'personas-editar/:id', component: PersonasFormComponent, canDeactivate: [LeaveFormService] }, // parametros /:id, truco para que parezca otro form
 
     ])
   ],
   providers: [PersonasService,DatePipe,
     DireccionesService,
+    LeaveFormService,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: LogInterceptorService,

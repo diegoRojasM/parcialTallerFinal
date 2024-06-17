@@ -28,6 +28,13 @@ export class PersonasFormComponent implements OnInit {
   personaId!: number;
   direccionesABorrar: number[] = [];
 
+  ignorarExistenCambiosPendientes: boolean = false;
+
+  existenCambiosPendientes(): boolean {
+    if (this.ignorarExistenCambiosPendientes) { return false; };
+    return !this.formGroup.pristine; // si el formulario ha sido editado o no
+  }
+
   ngOnInit() {
     this.formGroup = this.fb.group({
       nombre: '',
@@ -111,6 +118,7 @@ export class PersonasFormComponent implements OnInit {
   }
 
   save() {
+    this.ignorarExistenCambiosPendientes = true;
     let persona: IPersona = Object.assign({}, this.formGroup.value);
     console.table(persona);
 
