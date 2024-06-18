@@ -1,24 +1,4 @@
-<!-- <h1>{{modoVerDetalle ? 'Ver Detalles' : 'Agregar'}} Evento Individual</h1> -->
-<!-- <h1 *ngIf="modoAgregar">Agregar Evento Individual</h1>
-<h1 *ngIf="modoVerDetalle">Ver Detalles Evento Individual</h1>
-<h1 *ngIf="modoInscribirParticipane">Agregar Participante a Evento Individual</h1>
 
-
-
-<form class="form-horizontal" novalidate (ngSubmit)="save()" [formGroup]="formGroup">
-  <fieldset>
-    <div class="form-group"
-         [ngClass]="{'has-error': (formGroup.get('nombre')!.touched || formGroup.get('nombre')!.dirty) && !formGroup.get('nombre')!.valid }">
-      <label class="col-md-2 control-label" for="nombreId">Nombre</label>
-      <div class="col-md-8">
-        <input class="form-control" id="nombreId" type="text" required formControlName="nombre" [readonly]="modoVerDetalle" />
-        <span class="help-block" *ngIf="(formGroup.get('nombre')!.touched || formGroup.get('nombre')!.dirty) && formGroup.get('nombre')!.errors">
-          <span class="text-danger" *ngIf="formGroup.get('nombre')!.errors!.required">
-            El campo nombre es requerido
-          </span>
-        </span>
-      </div>
-    </div> -->
     <h1 *ngIf="modoAgregar">Agregar Evento Individual</h1>
     <h1 *ngIf="modoVerDetalle">Ver Detalles Evento Individual</h1>
     <h1 *ngIf="modoInscribirParticipane">Agregar Participante a Evento Individual</h1>
@@ -112,49 +92,78 @@
     </div>
     <br>
 
-    <!-- <div class="form-group">
-      <div class="col-md-4 col-md-offset-2">
-        <span *ngIf="!modoVerDetalle">
-          <button class="btn btn-primary" type="submit" [disabled]="!formGroup.valid">
-            Guardar
-          </button>
-        </span>
-        <button class="btn btn-primary" type="button" [routerLink]='["/eventos"]'>
-          {{modoVerDetalle ? 'Atrás' : 'Cancelar'}}
-        </button>
+
+
+          
+
+
+ <div class="form-group" *ngIf="modoInscribirParticipane">
+  <a class="btn btn-primary" (click)="agregarParticipante()">Agregar Participante</a>
+</div>
+
+<div formArrayName="participantes">
+  <div *ngFor="let participante of participantes.controls; let i = index" [formGroupName]="i">
+    <div class="form-group">
+      <label class="col-md-2 control-label" [attr.for]="'nombre' + i">Nombre</label>
+      <div class="col-md-8">
+        <input class="form-control" [attr.id]="'nombre' + i" type="text" formControlName="nombre" [readonly]="modoVerDetalle" />
       </div>
     </div>
-  </fieldset>
-</form> -->
-
-
-
-    <!-- Campo adicional para el modoInscribirParticipante -->
-
-    <!-- <div *ngIf="modoInscribirParticipane" class="form-group"
-         [ngClass]="{'has-error': (formGroup.get('nuevoParticipante')!.touched || formGroup.get('nuevoParticipante')!.dirty) && !formGroup.get('nuevoParticipante')!.valid }">
-      <label class="col-md-2 control-label" for="nuevoParticipanteId">Nuevo Participante</label>
+    <div class="form-group">
+      <label class="col-md-2 control-label" [attr.for]="'direccion' + i">Dirección</label>
       <div class="col-md-8">
-        <input class="form-control" id="nuevoParticipanteId" type="text" required formControlName="nuevoParticipante" />
-        <span class="help-block" *ngIf="(formGroup.get('nuevoParticipante')!.touched || formGroup.get('nuevoParticipante')!.dirty) && formGroup.get('nuevoParticipante')!.errors">
-          <span class="text-danger" *ngIf="formGroup.get('nuevoParticipante')!.errors!.required">
-            El campo nuevo participante es requerido
-          </span>
-        </span>
+        <input class="form-control" [attr.id]="'direccion' + i" type="text" formControlName="direccion" [readonly]="modoVerDetalle" />
       </div>
-    </div> -->
-
-    <div *ngIf="modoInscribirParticipane" class="form-group">
-  <label class="col-md-2 control-label" >Nuevo Participante</label>
-  <div class="col-md-8">
-    <input />
-    <span class="help-block" *>
-      <span class="text-danger">
-        El campo nuevo participante es requerido
-      </span>
-    </span>
+    </div>
+    <div class="form-group">
+      <label class="col-md-2 control-label" [attr.for]="'fechaNacimiento' + i">Fecha de Nacimiento</label>
+      <div class="col-md-8">
+        <input class="form-control" [attr.id]="'fechaNacimiento' + i" type="date" formControlName="fechaNacimiento" [readonly]="modoVerDetalle" />
+      </div>
+    </div>
+    <div class="form-group">
+      <label class="col-md-2 control-label" [attr.for]="'correo' + i">Correo</label>
+      <div class="col-md-8">
+        <input class="form-control" [attr.id]="'correo' + i" type="email" formControlName="correo" [readonly]="modoVerDetalle" />
+      </div>
+    </div>
+    <div class="form-group">
+      <label class="col-md-2 control-label" [attr.for]="'numeroTelefono' + i">Número de Teléfono</label>
+      <div class="col-md-8">
+        <input class="form-control" [attr.id]="'numeroTelefono' + i" type="text" formControlName="numeroTelefono" [readonly]="modoVerDetalle" />
+      </div>
+    </div>
+    <div class="form-group">
+      <label class="col-md-2 control-label" [attr.for]="'organizacion' + i">Organización</label>
+      <div class="col-md-8">
+        <input class="form-control" [attr.id]="'organizacion' + i" type="text" formControlName="organizacion" [readonly]="modoVerDetalle" />
+      </div>
+    </div>
+    <div class="form-group">
+      <label class="col-md-2 control-label" [attr.for]="'profesion' + i">Profesión</label>
+      <div class="col-md-8">
+        <input class="form-control" [attr.id]="'profesion' + i" type="text" formControlName="profesion" [readonly]="modoVerDetalle" />
+      </div>
+    </div>
+    <div class="form-group">
+      <label class="col-md-2 control-label" [attr.for]="'cargo' + i">Cargo</label>
+      <div class="col-md-8">
+        <input class="form-control" [attr.id]="'cargo' + i" type="text" formControlName="cargo" [readonly]="modoVerDetalle" />
+      </div>
+    </div>
+    <div class="form-group" *ngIf="!modoVerDetalle">
+      <div class="col-md-10">
+        <button type="button" class="btn btn-danger pull-right" (click)="removerParticipante(i)">Remover</button>
+      </div>
+    </div>
   </div>
 </div>
+
+
+
+
+
+
 
     <div class="form-group">
       <div class="col-md-4 col-md-offset-2">

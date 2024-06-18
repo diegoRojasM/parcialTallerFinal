@@ -1,6 +1,6 @@
 import { DatePipe } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { IEvento } from '../Evento';
 import { EventosService } from '../eventos.service';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -12,6 +12,7 @@ import { ActivatedRoute, Router } from '@angular/router';
   providers: [DatePipe]
 })
 export class EventosFormComponent implements OnInit {
+
   formGroup!: FormGroup;
   //modoVerDetalle: boolean = false; // Set this based on your logic
   eventoId! : number;
@@ -19,6 +20,8 @@ export class EventosFormComponent implements OnInit {
   modoAgregar: boolean = false;
   modoVerDetalle: boolean = false;
   modoInscribirParticipane: boolean = false;
+  participantesABorrar: number[] = [];
+
 
   constructor(private fb: FormBuilder,
               private eventoService: EventosService,
@@ -34,7 +37,8 @@ export class EventosFormComponent implements OnInit {
       informacionContacto: ['', Validators.required],
       fechaInicio: ['', Validators.required],
       fechaFin: ['', Validators.required],
-      estado: { value: 'Activo', disabled: this.modoVerDetalle }
+      estado: { value: 'Activo', disabled: this.modoVerDetalle },
+      participantes: this.fb.array([])
     });
 
     
@@ -67,6 +71,39 @@ export class EventosFormComponent implements OnInit {
     }
   }
 
+
+  get participantes(): FormArray {
+    return this.formGroup.get('participantes') as FormArray;
+  }
+
+  agregarParticipante() {
+    this.participantes.push(this.construirParticipante());
+  }
+
+  construirParticipante(): FormGroup {
+    return this.fb.group({
+      id: [0],
+      nombre: [''],
+      direccion: [''],
+      fechaNacimiento: [new Date()],
+      correo: [''],
+      numeroTelefono: [''],
+      organizacion: [''],
+      profesion: [''],
+      cargo: [''],
+      eventoId: this.eventoId != null ? this.eventoId : 0
+    });
+  }
+
+  removerParticipante(index : number) {
+    let participanteRemover = this.participantes.at(index) as FormGroup;
+    if (participanteRemover.controls['id'].value != '0') {
+      this.participantesABorrar.push(<number>participanteRemover.controls['id'].value);
+    }
+    this.participantes.removeAt(index);
+  }
+
+
   cargarFormulario(evento : IEvento){
     const format = 'yyyy-MM-dd';
 
@@ -80,6 +117,7 @@ export class EventosFormComponent implements OnInit {
       estado: evento.estado
     })
   }
+
 
   save() {
     if (this.modoVerDetalle ) return;//a
@@ -104,24 +142,6 @@ export class EventosFormComponent implements OnInit {
     }
 
   }
-
-  //   if (this.modoEdicion) {
-  //     persona.id = this.personaId;
-
-  //     this.personaService.updatePersona(persona)
-  //       .subscribe(() => this.borrarDirecciones(),
-  //                  error => console.error(error));
-  //   } else {
-  //     this.personaService.createPersona(persona)
-  //       .subscribe(() => this.onSaveSuccess(),
-  //                  error => console.error(error));
-  //   }
-  // }
-
-
-
-
-
 
 
 
