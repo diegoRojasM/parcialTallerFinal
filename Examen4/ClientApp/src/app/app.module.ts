@@ -57,10 +57,6 @@ import { NavMenuComponent } from './nav-menu/nav-menu.component';
 import { HomeComponent } from './home/home.component';
 import { CounterComponent } from './counter/counter.component';
 import { FetchDataComponent } from './fetch-data/fetch-data.component';
-import { ProductosComponent } from './productos/productos.component';
-import { AgregarProductoComponent } from './productos/agregar-producto/agregar-producto.component';
-import { EditarProductoComponent } from './productos/editar-producto/editar-producto.component';
-import { ConfirmarBorrarProductoComponent } from './productos/confirmar-borrar-producto/confirmar-borrar-producto.component';
 
 import { PersonasComponent } from './personas/personas.component';
 import { PersonasService } from './personas/personas.service';
@@ -82,10 +78,6 @@ import { AuthInterceptorService } from './services/auth-interceptor.service';
     HomeComponent,
     CounterComponent,
     FetchDataComponent,
-    ProductosComponent,
-    AgregarProductoComponent,
-    EditarProductoComponent,
-    ConfirmarBorrarProductoComponent,
     PersonasComponent,
     PersonasFormComponent,
     RegisterComponent
@@ -103,10 +95,7 @@ import { AuthInterceptorService } from './services/auth-interceptor.service';
       { path: '', component: HomeComponent, pathMatch: 'full' },
       { path: 'counter', component: CounterComponent },
       { path: 'fetch-data', component: FetchDataComponent },
-      { path: 'productos', component: ProductosComponent },
-      { path: 'agregar', component: AgregarProductoComponent },
-      { path: 'editar/:id', component: EditarProductoComponent },
-      { path: 'borrar/:id', component: ConfirmarBorrarProductoComponent },
+
 
       { path: 'personas', component: PersonasComponent, canActivate:[AuthGuardService] },
       { path: 'personas-agregar', component: PersonasFormComponent, canDeactivate: [LeaveFormService] },
