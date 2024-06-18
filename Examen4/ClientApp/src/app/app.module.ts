@@ -71,6 +71,9 @@ import { AuthGuardService } from './services/auth-guard.service';
 import { AccountService } from './account/account.service';
 import { AuthInterceptorService } from './services/auth-interceptor.service';
 
+import { EventosComponent } from './eventos/eventos.component';
+import { EventosService } from './eventos/eventos.service';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -78,11 +81,12 @@ import { AuthInterceptorService } from './services/auth-interceptor.service';
     HomeComponent,
     CounterComponent,
     FetchDataComponent,
+
     PersonasComponent,
     PersonasFormComponent,
-    RegisterComponent
+    RegisterComponent,
 
-    
+    EventosComponent
 
   ],
   imports: [
@@ -102,13 +106,19 @@ import { AuthInterceptorService } from './services/auth-interceptor.service';
       { path: 'personas-editar/:id', component: PersonasFormComponent, canDeactivate: [LeaveFormService] }, // parametros /:id, truco para que parezca otro form
       { path: 'register-login', component: RegisterComponent },
 
+      { path: 'eventos', component: EventosComponent},
+
+
     ])
   ],
-  providers: [PersonasService,DatePipe,
+  providers: [PersonasService,
+    DatePipe,
     DireccionesService,
     LeaveFormService,
     AuthGuardService,
     AccountService,
+
+    EventosService,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: LogInterceptorService,
