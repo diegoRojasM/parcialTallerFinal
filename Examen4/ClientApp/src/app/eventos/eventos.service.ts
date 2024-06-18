@@ -16,4 +16,12 @@ export class EventosService {
     return this.http.get<IEvento[]>(this.apiURL);
   }
 
+  getEvento(eventoId: string): Observable<IEvento>{
+    return this.http.get<IEvento>(this.apiURL + '/' + eventoId)
+  }
+
+  createEvento(evento: IEvento):Observable<IEvento>{
+    return this.http.post<IEvento>(this.apiURL, evento)
+  }
+
 }

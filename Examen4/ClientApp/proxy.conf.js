@@ -10,6 +10,9 @@ const PROXY_CONFIG = [
       "/personas",
       "/direcciones",
       "/account",
+      "/eventos",
+
+      
 
    ],
     proxyTimeout: 10000,

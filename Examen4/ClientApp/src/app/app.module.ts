@@ -115,7 +115,7 @@ import { DetallesEventoComponent } from './eventos/detalles-evento/detalles-even
       { path: 'eventos', component: EventosComponent},
       { path: 'confirmar-evento', component: ConfirmarEventoComponent},
       { path: 'evento-agregar-individual', component: EventosFormComponent},
-      { path: 'eventos-detalle/:id', component: DetallesEventoComponent},
+      { path: 'eventos-detalle/:id', component: EventosFormComponent},
 
       
 
