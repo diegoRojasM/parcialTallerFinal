@@ -2,7 +2,7 @@ export interface IParticipante {
     id: number;
     nombre: string;
     direccion: string;
-    fechaNacimiento: Date;
+    fechaNacimiento: string;
     correo: string;
     numeroTelefono: string;
     organizacion: string;

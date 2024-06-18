@@ -84,15 +84,15 @@ export class EventosFormComponent implements OnInit {
 
   construirParticipante(): FormGroup {
     return this.fb.group({
-      id: [0],
-      nombre: [''],
-      direccion: [''],
-      fechaNacimiento: [new Date()],
-      correo: [''],
-      numeroTelefono: [''],
-      organizacion: [''],
-      profesion: [''],
-      cargo: [''],
+      id: 0,
+      nombre: '',
+      direccion: '',
+      fechaNacimiento: '',
+      correo: '',
+      numeroTelefono: '',
+      organizacion: '',
+      profesion: '',
+      cargo: '',
       eventoId: this.eventoId != null ? this.eventoId : 0
     });
   }
@@ -134,11 +134,13 @@ export class EventosFormComponent implements OnInit {
 
 
   save() {
-    if (this.modoVerDetalle ) return;//a
+    if (this.modoVerDetalle && this.modoAgregar ) return;//a
 
     let evento: IEvento = Object.assign({}, this.formGroup.value);
     console.table(evento);
 
+
+    
 
     if(this.modoInscribirParticipane){
       //EDITAR EL REGISTRO
