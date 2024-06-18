@@ -73,6 +73,9 @@ import { AuthInterceptorService } from './services/auth-interceptor.service';
 
 import { EventosComponent } from './eventos/eventos.component';
 import { EventosService } from './eventos/eventos.service';
+import { ConfirmarEventoComponent } from './eventos/confirmar-evento/confirmar-evento.component';
+import { EventosFormComponent } from './eventos/eventos-form/eventos-form.component';
+import { DetallesEventoComponent } from './eventos/detalles-evento/detalles-evento.component';
 
 @NgModule({
   declarations: [
@@ -86,7 +89,10 @@ import { EventosService } from './eventos/eventos.service';
     PersonasFormComponent,
     RegisterComponent,
 
-    EventosComponent
+    EventosComponent,
+    ConfirmarEventoComponent,
+    DetallesEventoComponent,
+    EventosFormComponent
 
   ],
   imports: [
@@ -107,7 +113,11 @@ import { EventosService } from './eventos/eventos.service';
       { path: 'register-login', component: RegisterComponent },
 
       { path: 'eventos', component: EventosComponent},
+      { path: 'confirmar-evento', component: ConfirmarEventoComponent},
+      { path: 'evento-agregar-individual', component: EventosFormComponent},
+      { path: 'eventos-detalle/:id', component: DetallesEventoComponent},
 
+      
 
     ])
   ],
