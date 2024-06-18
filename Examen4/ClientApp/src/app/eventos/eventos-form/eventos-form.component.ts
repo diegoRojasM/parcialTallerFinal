@@ -55,7 +55,6 @@ export class EventosFormComponent implements OnInit {
       }
 
 //
-
       this.eventoId = params['id'];
       this.eventoService.getEvento(this.eventoId.toString())
         .subscribe(evento => this.cargarFormulario(evento),
@@ -83,18 +82,22 @@ export class EventosFormComponent implements OnInit {
   }
 
   save() {
-    if (this.modoVerDetalle || this.modoInscribirParticipane ) return;//a
+    if (this.modoVerDetalle ) return;//a
 
     let evento: IEvento = Object.assign({}, this.formGroup.value);
     console.table(evento);
 
     //this.if(this.modoVerDetalle)
     if(this.modoInscribirParticipane){
+      //EDITAR EL REGISTRO
       evento.id = this.eventoId
-      console.log(this.eventoId);//
-      
+      //console.log(this.eventoId);
+      this.eventoService.updateEvento(evento)
+        .subscribe(evento => this.onSaveSuccess(),
+        error => console.error(error)
+      )
     }else{ 
-
+      //AGREGAR REGISTRO
     this.eventoService.createEvento(evento)
       .subscribe(evento => this.onSaveSuccess(),
                  error => console.error(error));

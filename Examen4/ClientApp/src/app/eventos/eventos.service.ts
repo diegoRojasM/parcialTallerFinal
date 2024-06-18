@@ -25,7 +25,7 @@ export class EventosService {
   }
   // solo para actualizar participantes
   updateEvento(evento:IEvento):Observable<IEvento>{
-    return this.http.put<IEvento>(this.apiURL+"/"+evento.id.toString(),evento)
+    return this.http.put<IEvento>(this.apiURL+"/"+evento.id.toString(),evento);
   }
 
 }
