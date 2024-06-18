@@ -28,29 +28,54 @@ namespace Examen3.Controllers
         }
 
         // GET: api/Eventos/5
-        [HttpGet("{id}")]
-        public async Task<ActionResult<Evento>> GetEvento(int id, bool incluirParticipantes = false)
+[HttpGet("{id}")]
+public async Task<IActionResult> GetEvento(int id, bool incluirParticipantes = false)
+{
+    if (id <= 0)
+    {
+        return BadRequest(new { message = "ID de evento no válido" });
+    }
+
+    Evento evento;
+
+    if (incluirParticipantes)
+    {
+        evento = await _context.Eventos
+                               .Include(x => x.Participantes)
+                               .FirstOrDefaultAsync(x => x.Id == id);
+    }
+    else
+    {
+        evento = await _context.Eventos.FindAsync(id);
+    }
+
+    if (evento == null)
+    {
+        return NotFound(new { message = "Evento no encontrado" });
+    }
+
+    return Ok(evento);
+}
+
+
+        private async Task CrearOEditarParticipantes(List<Participante> participantes)
         {
-            Evento evento;
+            // Separa las participantes en dos listas: las que necesitan ser creadas y las que necesitan ser editadas
+            List<Participante> participantesACrear = participantes.Where(x => x.Id == 0).ToList();
+            List<Participante> participantesAEditar = participantes.Where(x => x.Id != 0).ToList();
 
-            if (incluirParticipantes)
+            if (participantesACrear.Any())
             {
-                evento = await _context.Eventos
-                                       .Include(x => x.Participantes)
-                                       .FirstOrDefaultAsync(x => x.Id == id);
+                await _context.AddRangeAsync(participantesACrear);
             }
-            else
+            if (participantesAEditar.Any())
             {
-                evento = await _context.Eventos.FindAsync(id);
+                _context.UpdateRange(participantesAEditar);
             }
-
-            if (evento == null)
-            {
-                return NotFound();
-            }
-
-            return evento;
         }
+
+
+
 
         // PUT: api/Eventos/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
@@ -66,6 +91,7 @@ namespace Examen3.Controllers
 
             try
             {
+                await CrearOEditarParticipantes(evento.Participantes);
                 await _context.SaveChangesAsync();
             }
             catch (DbUpdateConcurrencyException)

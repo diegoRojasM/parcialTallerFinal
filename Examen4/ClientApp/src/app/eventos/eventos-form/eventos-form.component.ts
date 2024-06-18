@@ -4,6 +4,7 @@ import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { IEvento } from '../Evento';
 import { EventosService } from '../eventos.service';
 import { ActivatedRoute, Router } from '@angular/router';
+import { ParticipantesService } from 'src/app/participantes/participantes.service';
 
 @Component({
   selector: 'app-eventos-form',
@@ -27,7 +28,8 @@ export class EventosFormComponent implements OnInit {
               private eventoService: EventosService,
               private router: Router,
               private activatedRoute: ActivatedRoute,
-              private datePipe: DatePipe,) {}
+              private datePipe: DatePipe,
+              private participantesService: ParticipantesService) {}
 
   ngOnInit() {
     this.formGroup = this.fb.group({
@@ -115,7 +117,19 @@ export class EventosFormComponent implements OnInit {
       fechaInicio: this.datePipe.transform(evento.fechaInicio, format),
       fechaFin: this.datePipe.transform(evento.fechaFin, format),
       estado: evento.estado
-    })
+    });
+
+    const participantesFormArray = this.fb.array(
+      evento.participantes.map(participante => this.fb.group(participante))
+    );
+    this.formGroup.setControl('participantes', participantesFormArray);
+    // let participantes = this.formGroup.controls['participantes'] as FormArray;
+    // evento.participantes.forEach(participante => {
+    //   let participanteFG = this.construirParticipante();
+    //   participanteFG.patchValue(participante);
+    //   participantes.push(participanteFG);
+    // })
+
   }
 
 
@@ -125,13 +139,13 @@ export class EventosFormComponent implements OnInit {
     let evento: IEvento = Object.assign({}, this.formGroup.value);
     console.table(evento);
 
-    //this.if(this.modoVerDetalle)
+
     if(this.modoInscribirParticipane){
       //EDITAR EL REGISTRO
       evento.id = this.eventoId
       //console.log(this.eventoId);
       this.eventoService.updateEvento(evento)
-        .subscribe(evento => this.onSaveSuccess(),
+        .subscribe(evento => this.borrarParticipante(),
         error => console.error(error)
       )
     }else{ 
@@ -141,6 +155,17 @@ export class EventosFormComponent implements OnInit {
                  error => console.error(error));
     }
 
+  }
+
+  borrarParticipante(){
+    if(this.participantesABorrar.length===0){
+      this.onSaveSuccess();
+      return;
+    }
+
+    this.participantesService.deleteParticipantes(this.participantesABorrar)
+      .subscribe(()=> this.onSaveSuccess(),
+        error => console.error(error))
   }
 
 
