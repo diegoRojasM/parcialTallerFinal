@@ -13,8 +13,12 @@ import { ActivatedRoute, Router } from '@angular/router';
 })
 export class EventosFormComponent implements OnInit {
   formGroup!: FormGroup;
-  modoVerDetalle: boolean = false; // Set this based on your logic
+  //modoVerDetalle: boolean = false; // Set this based on your logic
   eventoId! : number;
+
+  modoAgregar: boolean = false;
+  modoVerDetalle: boolean = false;
+  modoInscribirParticipane: boolean = false;
 
   constructor(private fb: FormBuilder,
               private eventoService: EventosService,
@@ -36,18 +40,16 @@ export class EventosFormComponent implements OnInit {
     
     this.activatedRoute.params.subscribe(params => {
       if (params['id'] === undefined) {
+        this.modoAgregar = true;// a
         return;
       }
-      this.modoVerDetalle = true;
-
-
-      //
+      //this.modoVerDetalle = true;
 
       this.eventoId = params['id'];
 
       const urlSegments = this.activatedRoute.snapshot.url.map(segment => segment.path);
       if (urlSegments.includes('inscribir-participante')) {
-        this.modoVerDetalle = false;
+        this.modoInscribirParticipane = true;
       } else {
         this.modoVerDetalle = true;
       }
@@ -60,10 +62,10 @@ export class EventosFormComponent implements OnInit {
                    error => console.error(error));
     });
 
-    if (this.modoVerDetalle) {
+
+    if (this.modoVerDetalle  || this.modoInscribirParticipane) { //a
       this.formGroup.disable();
     }
-    
   }
 
   cargarFormulario(evento : IEvento){
@@ -81,18 +83,23 @@ export class EventosFormComponent implements OnInit {
   }
 
   save() {
-    if (this.modoVerDetalle) return;
+    if (this.modoVerDetalle || this.modoInscribirParticipane ) return;//a
 
     let evento: IEvento = Object.assign({}, this.formGroup.value);
     console.table(evento);
 
     //this.if(this.modoVerDetalle)
+    if(this.modoInscribirParticipane){
+      evento.id = this.eventoId
+      console.log(this.eventoId);//
+      
+    }else{ 
 
     this.eventoService.createEvento(evento)
       .subscribe(evento => this.onSaveSuccess(),
                  error => console.error(error));
+    }
 
-    
   }
 
   //   if (this.modoEdicion) {
