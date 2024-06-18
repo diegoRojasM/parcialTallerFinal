@@ -75,7 +75,7 @@ import { EventosComponent } from './eventos/eventos.component';
 import { EventosService } from './eventos/eventos.service';
 import { ConfirmarEventoComponent } from './eventos/confirmar-evento/confirmar-evento.component';
 import { EventosFormComponent } from './eventos/eventos-form/eventos-form.component';
-import { DetallesEventoComponent } from './eventos/detalles-evento/detalles-evento.component';
+
 
 @NgModule({
   declarations: [
@@ -91,7 +91,6 @@ import { DetallesEventoComponent } from './eventos/detalles-evento/detalles-even
 
     EventosComponent,
     ConfirmarEventoComponent,
-    DetallesEventoComponent,
     EventosFormComponent
 
   ],
@@ -116,6 +115,9 @@ import { DetallesEventoComponent } from './eventos/detalles-evento/detalles-even
       { path: 'confirmar-evento', component: ConfirmarEventoComponent},
       { path: 'evento-agregar-individual', component: EventosFormComponent},
       { path: 'eventos-detalle/:id', component: EventosFormComponent},
+
+      { path: 'inscribir-participante/:id', component: EventosFormComponent},
+
 
       
 

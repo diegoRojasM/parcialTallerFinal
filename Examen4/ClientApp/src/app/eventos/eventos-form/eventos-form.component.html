@@ -1,4 +1,10 @@
 <h1>{{modoVerDetalle ? 'Ver Detalles' : 'Agregar'}} Evento Individual</h1>
+<!-- <h1 *ngIf="modoAgregar">Agregar Evento Individual</h1>
+<h1 *ngIf="modoVerDetale">Ver Detalles Evento Individual</h1>
+<h1 *ngIf="modoAgregarParticipante">Agregar Participante a Evento Individual</h1> -->
+
+
+
 <form class="form-horizontal" novalidate (ngSubmit)="save()" [formGroup]="formGroup">
   <fieldset>
     <div class="form-group"

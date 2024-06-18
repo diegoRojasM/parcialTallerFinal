@@ -30,7 +30,7 @@
             <td>{{ evento.fechaInicio | date : 'dd-MM-yyyy' }}</td>
             <td>{{ evento.fechaFin | date : 'dd-MM-yyyy' }}</td>
             <td>
-                <button class="btn btn-primary" [routerLink]="['/eventos-inscribirse']">Inscribirse</button>
+                <button class="btn btn-primary" [routerLink]="['/inscribir-participante/', evento.id]">Inscribirse</button>
                 <button class="btn btn-secundary" [routerLink]="['/eventos-detalle/', evento.id]">Ver Detalles</button>
                 <!-- <button class="btn btn-danger" (click)="delete(evento)">Borrar</button> -->
             </td>

@@ -11,7 +11,7 @@ export class EventosService {
 
   constructor(private http: HttpClient, @Inject('BASE_URL') private baseUrl: string ) { }
 
-  // Método para obtener personas
+  // Método para obtener eventos
   getEventos(): Observable<IEvento[]> {
     return this.http.get<IEvento[]>(this.apiURL);
   }
@@ -22,6 +22,10 @@ export class EventosService {
 
   createEvento(evento: IEvento):Observable<IEvento>{
     return this.http.post<IEvento>(this.apiURL, evento)
+  }
+  // solo para actualizar participantes
+  updateEvento(evento:IEvento):Observable<IEvento>{
+    return this.http.put<IEvento>(this.apiURL+"/"+evento.id.toString(),evento)
   }
 
 }

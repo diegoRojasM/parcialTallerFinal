@@ -40,6 +40,20 @@ export class EventosFormComponent implements OnInit {
       }
       this.modoVerDetalle = true;
 
+
+      //
+
+      this.eventoId = params['id'];
+
+      const urlSegments = this.activatedRoute.snapshot.url.map(segment => segment.path);
+      if (urlSegments.includes('inscribir-participante')) {
+        this.modoVerDetalle = false;
+      } else {
+        this.modoVerDetalle = true;
+      }
+
+//
+
       this.eventoId = params['id'];
       this.eventoService.getEvento(this.eventoId.toString())
         .subscribe(evento => this.cargarFormulario(evento),
@@ -72,10 +86,34 @@ export class EventosFormComponent implements OnInit {
     let evento: IEvento = Object.assign({}, this.formGroup.value);
     console.table(evento);
 
+    //this.if(this.modoVerDetalle)
+
     this.eventoService.createEvento(evento)
       .subscribe(evento => this.onSaveSuccess(),
                  error => console.error(error));
+
+    
   }
+
+  //   if (this.modoEdicion) {
+  //     persona.id = this.personaId;
+
+  //     this.personaService.updatePersona(persona)
+  //       .subscribe(() => this.borrarDirecciones(),
+  //                  error => console.error(error));
+  //   } else {
+  //     this.personaService.createPersona(persona)
+  //       .subscribe(() => this.onSaveSuccess(),
+  //                  error => console.error(error));
+  //   }
+  // }
+
+
+
+
+
+
+
 
   onSaveSuccess() {
     this.router.navigate(['/eventos']);
